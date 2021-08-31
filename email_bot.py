@@ -7,12 +7,16 @@ from email.mime.text import MIMEText
 import csv
 
 # Enter user information
-sender_email = 'knowledgef97@gmail.com'
-# receiver_email = 'ojalmaps@gmail.com'
-password = input('Enter the password:')
+while(True):
+    sender_email = input('Enter your email :')
+    if "@" in sender_email:
+        break
 
+
+password = input('Enter the password :')
+
+#From the Google Document
 subject = "Subject: GraceHacks UCSC Female and Non-Binary Hackathon Sponsorship"
-
 body ="""
 <html>
 <body style ="font-size:14px;font-family: "Times New Roman"">
@@ -41,36 +45,45 @@ Thanks.
 
 message = MIMEMultipart()
 message["From"] = sender_email
-# message["To"] = receiver_email
-message["Subject"] = subject
-text = message.as_string()
 
 context = ssl.create_default_context()
-with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
-    server.login(sender_email, password)
-    with open("contacts.csv") as file:
-        reader = csv.reader(file)
-        for row in reader:
-            name = row[0]
-            receiver_email = row[2]
-            message.attach(MIMEText(body.replace("company_name",name), "html"))
-            filename = 'GHSponsership-packet.pdf'
-            with open(filename, "rb") as attachment:
-                part = MIMEBase("application", "octet-stream")
-                part.set_payload(attachment.read())
+company_names =[]
 
-            encoders.encode_base64(part)
+try:
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+        server.login(sender_email, password)
+except Exception as e:
+    print(e)
+    exit(-1)
 
-            part.add_header(
-                "Content-Disposition",
-                f"attachment; filename= {filename}",
-            )
+with open("contacts.csv") as file:
+    reader = csv.reader(file)
 
-            # Add attachment to message and convert message to string
-            message.attach(part)
-            text = message.as_string()
-            server.sendmail(sender_email, "ojalmaps@gmail.com", text)
-            server.sendmail(sender_email, receiver_email, text)
+    for row in reader:
+        name = row[0]
+        company_names.append(name)
+        receiver_email = row[2]
+        message["To"] = receiver_email
+        message["Subject"] = subject
+        text = message.as_string()
+        message.attach(MIMEText(body.replace("company_name",name), "html"))
+        filename = 'GHSponsership-packet.pdf'                                    # Name of the file.
+        with open(filename, "rb") as attachment:
+            part = MIMEBase("application", "octet-stream")
+            part.set_payload(attachment.read())
 
-# trying to find a way to send the text as a bold
+        encoders.encode_base64(part)
 
+        part.add_header(
+            "Content-Disposition",
+            f"attachment; filename= {filename}",
+        )
+
+        message.attach(part)
+        text = message.as_string()
+        server.sendmail(sender_email, receiver_email, text)
+
+
+
+print('The emails have been sent to the following companies!')
+print(company_names)
