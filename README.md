@@ -8,4 +8,4 @@ GHSponsership-packet.pdf - pdf of the sponsership packet
 
 After running the program enter your username and password to send the emails
 
-* Credits -This program is based on the code from this website -https://realpython.com/python-send-email/*
+* Credits -This program is based on the code from this website -https://realpython.com/python-send-email/
