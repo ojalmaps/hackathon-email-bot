@@ -22,18 +22,17 @@ body ="""
 <body style ="font-size:14px;font-family: "Times New Roman"">
 <p>
 Hi ! <br>
-I help organize GraceHacks, an annual, beginner-friendly student-led hackathon for women and non-binary students in tech taking place at the University of California Santa Cruz. We hope to have 100+ women and non-binary students learn new skills in a supportive, low-pressure environment.
+Summary about hacakthon venue 
 <br><br>
-<b>  What is GraceHacks? </b><br>
+<b>  What is xHacks? </b><br>
 <ul>
-<li>GraceHacks is a 12-hour hackathon at the University of California Santa Cruz for female and non-binary students and includes a day full of hacking, learning and using new technologies. </li>
-<li>The aim of GraceHacks is to foster a welcoming and supportive hackathon environment for womxn and non-binary students. GraceHacks strives to empower these underrepresented groups and ensure that they have the confidence to create without inherent bias or sexism and to encourage their passion to excel in STEM fields.</li>
-<li>GraceHacks successfully held its first virtual hackathon in October 2020 with over 100 women/non-binary attendees.</li>
+<li> Item 1 </li>
+<li>  Item 2 </li>
 </ul><br>
 <b>  What we’re looking for: </b><br>
-We’re currently looking for <b>sponsors</b> to make this year’s hackathon possible. We hope to hold this year’s hackathon during November at the University of California Santa Cruz. If COVID-19 situations do not allow an in-person event, we will be holding our event virtually.
+??
 <br><br>
-I'm wondering if you think  company_name would be interested in sponsoring. It would be great to have company_name at GraceHacks and would encourage women and non-binary college students to pursue STEM careers.<br>
+I'm wondering if you think  company_name would be interested in sponsoring. It would be great to have company_name at x Hacks.<br>
 I have attached the sponsorship packet to this email.<br>
 Please let me know if you have any questions.<br>
 <br> <br>
@@ -67,7 +66,7 @@ with open("contacts.csv") as file:
         message["Subject"] = subject
         text = message.as_string()
         message.attach(MIMEText(body.replace("company_name",name), "html"))
-        filename = 'GHSponsership-packet.pdf'                                    # Name of the file.
+        filename = 'Sponsership-packet.pdf'                                    # Name of the file.
         with open(filename, "rb") as attachment:
             part = MIMEBase("application", "octet-stream")
             part.set_payload(attachment.read())
